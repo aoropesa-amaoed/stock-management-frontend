@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import itemService from "./services/items.js";
+import ItemList from './components/ItemList.jsx';
+import ItemForm from './components/ItemForm.jsx';
 
 function App() {
   const [items, setItems] = useState([]);
@@ -216,78 +218,40 @@ const updateSelectedItems = () => {
       <div>
         <button onClick={deleteSelectedItem}>Delete</button>
       </div>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Item Code</th>
-              <th>Item Description</th>
-              <th>UoM</th>
-              <th>Price</th>
-              <th>InStock</th>
-              <th>MinStock</th>
-              <th>MaxStock</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item) => (
-              <tr key={item.id}>
-                <td>
-                    <input
-                      type="checkbox"
-                      checked={selectedItems.includes(item.id)}
-                      onChange={() => handleCheckboxChange(item.id)}
-                    />
-                </td>
-                <td>{item.itemCode}</td>
-                <td>{item.itemDescription}</td>
-                <td>{item.inventoryUoM}</td>
-                <td>{item.price}</td>
-                <td>{item.InStock}</td>
-                <td>{item.MinStock}</td>
-                <td>{item.MaxStock}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <div>
-          <h3>Add Items</h3>
-        </div>
-        <div>
-          <form onSubmit= {addItems}>
-            <div>
-              <input type="text" value={isEditing ? editedItem.itemCode:newItemCode} onChange={isEditing ? handleEditInputItemCode :handleItemCodeChange} placeholder='Item Code' />
-            </div>
-            <div>
-              <input type="text" value={isEditing ? editedItem.itemDescription:newItemDesc} onChange={isEditing ? handleEditInputItemDesc :handleItemDescChange} placeholder='Item Description' />
-            </div>
-            <div>
-              <input type="text" value={isEditing ? editedItem.inventoryUoM:newItemUom} onChange={isEditing ? handleEditInputUoM :handleInventoryUoMChange} placeholder='Item UoM' />
-            </div>
-            <div>
-              <input type="number" value={isEditing ? editedItem.price:newItemPrice} onChange={isEditing ? handleEditInputPrice :handlePriceChange} placeholder='Price' />
-            </div>
-            <div>
-              <input type="number" value={isEditing ? editedItem.InStock:newItemInStock} onChange={isEditing ? handleEditInputInStock :handleInStockChange} placeholder='InStock' />
-            </div>
-            <div>
-              <input type="number" value={isEditing ? editedItem.MinStock:newItemMinStock} onChange={isEditing ? handleEditInputMinStock :handleMinStockChange} placeholder='MinStock' />
-            </div>
-            <div>
-              <input type="number" value={isEditing ? editedItem.MaxStock:newItemMaxStock} onChange={isEditing ? handleEditInputMaxStock :handleMaxStockChange} placeholder='MaxStock' />
-            </div>
-            <button type='submit' onClick={updateSelectedItems}>Save</button>
-            <button type='button'>Cancel</button>
-          </form>
-        </div>
-      </div>
+      <ItemList
+        items={items}
+        selectedItems={selectedItems}
+        handleCheckboxChange={handleCheckboxChange}
+      />
+      <ItemForm addItems={addItems}
+      isEditing={isEditing}
+      newItemCode={newItemCode}
+      handleEditInputItemCode={handleEditInputItemCode}
+      handleItemCodeChange={handleItemCodeChange}
+      newItemDesc={newItemDesc}
+      handleEditInputItemDesc={handleEditInputItemDesc}
+      handleItemDescChange={handleItemDescChange}
+      newItemUom={newItemUom}
+      handleEditInputUoM={handleEditInputUoM}
+      handleInventoryUoMChange={handleInventoryUoMChange}
+      newItemPrice={newItemPrice}
+      handleEditInputPrice={handleEditInputPrice}
+      handlePriceChange={handlePriceChange}
+      newItemInStock={newItemInStock}
+      handleEditInputInStock={handleEditInputInStock}
+      handleInStockChange={handleInStockChange}
+      newItemMinStock={newItemMinStock}
+      handleEditInputMinStock={handleEditInputMinStock}
+      handleMinStockChange={handleMinStockChange}
+      newItemMaxStock={newItemMaxStock}
+      handleEditInputMaxStock={handleEditInputMaxStock}
+      handleMaxStockChange={handleMaxStockChange}
+      updateSelectedItems={updateSelectedItems}
+      editedItem={editedItem}
+      />
     </>
   );
 }
   
 
 export default App;
-
